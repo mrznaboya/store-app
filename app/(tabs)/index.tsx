@@ -10,8 +10,11 @@ import {
 } from "react-native";
 
 import data from "@/assets/data.json";
+import useCartStore from "@/store/cartStore";
 
 export default function TabOneScreen() {
+  const { reduceProduct, addProduct } = useCartStore();
+
   const renderItem: ListRenderItem<any> = ({ item }) => (
     <View style={styles.cartItemContainer}>
       <Image style={styles.cartItemImage} source={{ uri: item.image }} />
@@ -20,10 +23,16 @@ export default function TabOneScreen() {
         <Text>Price: ${item.price}</Text>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={{ padding: 10 }}>
+        <TouchableOpacity
+          style={{ padding: 10 }}
+          onPress={() => reduceProduct(item)}
+        >
           <Ionicons name="remove" size={20} color="#000" />
         </TouchableOpacity>
-        <TouchableOpacity style={{ padding: 10 }}>
+        <TouchableOpacity
+          style={{ padding: 10 }}
+          onPress={() => addProduct(item)}
+        >
           <Ionicons name="add" size={20} color="#000" />
         </TouchableOpacity>
       </View>
